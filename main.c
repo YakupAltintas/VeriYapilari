@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 // dizinin elemanlarının bellek adreslerini yazdırma
 void arrayAdress()
@@ -155,6 +156,138 @@ void structTanimla()
     strcpy(student1.department, "name");
     printf("%s", student1.name);
 }
+
+// hafta5
+//  kendine referans yöntemi
+struct node
+{
+    int data;
+    struct node *next;
+};
+
+// liste üzerindeki her işlemde başlangıç node'u döndürülür.Başlangıç Nodu döndürülmeyen liste kaybolur!
+
+// Liste oluşturma
+struct node *create(struct node *start)
+{
+    int num;
+    struct node *newNode, *ptr;
+    printf("\n -1 girene kadar deger girin");
+    printf("\n deger giirniz");
+    scanf("%d", &num);
+
+    while (num != -1)
+    {
+        newNode = (struct node *)malloc(sizeof(struct node));
+        newNode->data = num;
+        if (start == NULL)
+        {
+            newNode->next = NULL;
+            start = newNode;
+        }
+        else
+        {
+            ptr = start;
+            while (ptr->next != NULL)
+                ptr = ptr->next;
+            ptr->next = newNode;
+            newNode->next = NULL;
+        }
+
+        printf("\n Enter the data: ");
+        scanf("%d", &num);
+        printf("\n Number: %d", num);
+    }
+    return start;
+}
+
+// Liste elemanlarında gezinme
+struct node *searchNode(struct node *start)
+{
+
+    struct node *ptr;
+    ptr = start;
+    while (ptr != NULL)
+    {
+        printf("\n %d", ptr->data);
+        ptr = ptr->next;
+    }
+    return start;
+}
+// listenin başına eleman ekleme
+struct node *insert_First(struct node *start)
+{
+    struct node *newNode;
+    newNode = (struct node *)malloc(sizeof(struct node));
+    newNode->data = 48;
+    newNode->next = start;
+    start = newNode;
+    return start;
+}
+struct node *insert_End(struct node *start)
+{
+    struct node *newNode, *ptr;
+    newNode = (struct node *)malloc(sizeof(struct node));
+    newNode->data = 52;
+    ptr = start;
+    while (ptr->next != NULL)
+    {
+        ptr = ptr->next;
+    }
+    ptr->next = newNode;
+    newNode->next = NULL;
+    return start;
+}
+// yukarıdaki donksiyonları aşağıda çağırısanız tüm kodlar sorunsuz çalışır!.
+
+struct node *countNode(struct node *start)
+{
+    int sayac = 0;
+    struct node *ptr;
+    ptr = start;
+    while (ptr != NULL)
+    {
+        ptr = ptr->next;
+        sayac++;
+    }
+    printf("\n count: %d", sayac);
+    return start;
+}
+
+struct node *findNode(struct node *start)
+{
+    int deger;
+    printf("\n aranacak deger giriniz: ");
+    scanf("%d", &deger);
+
+    int *findElement;
+    struct node *ptr;
+    ptr = start;
+    while (ptr != NULL)
+    {
+        if (ptr->data == deger)
+        {
+            findElement = ptr;
+            printf("\n bellek adresi: %d", findElement);
+        }
+        ptr = ptr->next;
+    }
+    printf("\n bellek adresi: %d", findElement);
+    return start;
+}
+
 int main()
 {
+    struct node *start = NULL;
+    start = create(start);
+
+    start = findNode(start);
+    // start = searchNode(start);
+    // start = countNode(start);
+    // start = insert_First(start);
+    // start = searchNode(start);
+    // start = insert_End(start);
+    // start = searchNode(start);
+
+    return 0;
 }
