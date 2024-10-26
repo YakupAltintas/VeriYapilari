@@ -26,8 +26,8 @@ void arrayMerge()
     {
         merge[i] = dizi2[i - 5];
     }
-
-    for (int i = 0; i < 10 - 1; i++)
+    // 1 3 2
+    for (int i = 0; i < 9; i++)
     {
         int min_idx = i;
         for (int j = i + 1; j < 10; j++)
@@ -50,20 +50,18 @@ void arrayMerge()
         printf("%d ", merge[i]);
     }
 }
-// dizinin ortasına eleman ekleme 1 2 3 4 5 p=2
+// dizinin ortasına eleman ekleme
 void elemanEkle()
 {
-
-    int dizi[50] = {3, 8, 24, 2};
-    int n = 4;
+    int dizi[50] = {3, 8, 5, 2};
+    int n = 3;
     int pos = 1;
-
     for (int i = n; i >= pos; i--)
     {
         dizi[i + 1] = dizi[i];
     }
     dizi[pos] = 11;
-    for (int i = 0; i <= n; i++)
+    for (int i = 0; i <= n + 1; i++)
     {
         printf("%d ", dizi[i]);
     }
@@ -76,7 +74,7 @@ void elemanSilme()
     int N = 4;
     int dizi[5] = {34, 56, 23, 6, 7};
 
-    for (int i = pos; i <= N - 1; i++)
+    for (int i = pos; i < N; i++)
     {
         dizi[i] = dizi[i + 1];
     }
@@ -92,24 +90,21 @@ void elemanSilme()
 void enKucukIndex()
 {
     int a[5] = {15, 28, 10, 7, 8};
-    int enBuyuk = 100;
+    int enKucuk = 100;
     int index = 0;
-    int index2 = 0;
-
     for (int i = 0; i < 5; i++)
     {
-        if (enBuyuk > a[i])
+        if (enKucuk > a[i])
         {
-            enBuyuk = a[i];
-            index2 = index;
+            enKucuk = a[i];
+            index = i;
         }
-        index++;
     }
-    printf("deger :%d \n index: %d", enBuyuk, index2);
+    printf("deger :%d \n index: %d", enKucuk, index);
 }
 
 // en büyük değeri bulma
-int buyuk()
+int enBuyuk()
 {
     int a[5] = {5, 9, 65, 3, 7};
     int enBuyuk = 0;
@@ -146,6 +141,7 @@ typedef struct
     char name[20];
     char department[20];
     float fees;
+    Student *next;
 } Student;
 
 void structTanimla()
@@ -173,7 +169,7 @@ struct node *create(struct node *start)
     int num;
     struct node *newNode, *ptr;
     printf("\n -1 girene kadar deger girin");
-    printf("\n deger giirniz");
+    printf("\n deger giriniz: ");
     scanf("%d", &num);
 
     while (num != -1)
@@ -276,16 +272,106 @@ struct node *findNode(struct node *start)
     return start;
 }
 
+struct node *insert_bag(struct node *start)
+{
+    struct node *newNode, *ptr, *prePtr;
+    int num, value;
+    printf("veri gir: ");
+    scanf("%d", &num);
+    printf("veri gir: ");
+    scanf("%d", &value);
+    newNode = (struct node *)malloc(sizeof(struct node));
+    newNode->data = num;
+    ptr = start;
+    prePtr = ptr;
+    while (prePtr->data != value)
+    {
+        prePtr = ptr;
+        ptr = ptr->next;
+    }
+    prePtr->next = newNode;
+    newNode->next = ptr;
+    return start;
+}
+struct node *insert_MidAdd(struct node *start)
+{
+    struct node *newNode, *ptr, *prePtr;
+    int num, value;
+    printf("veri gir: ");
+    scanf("%d", &num);
+    printf("onune eklenecek veri: ");
+    scanf("%d", &value);
+    newNode = (struct node *)malloc(sizeof(struct node));
+    newNode->data = num;
+    ptr = start;
+    prePtr = ptr;
+    while (ptr->data != value)
+    {
+        prePtr = ptr;
+        ptr = ptr->next;
+    }
+    prePtr->next = newNode;
+    newNode->next = ptr;
+    return start;
+}
+
+// listenin ilk elemanını siler
+struct node *remove_firstNode(struct node *start)
+{
+    struct node *ptr;
+    ptr = start;
+    start = ptr->next;
+    free(ptr);
+    return start;
+}
+
+// listenin son elemanını siler
+struct node *remove_endNode(struct node *start)
+{
+    struct node *ptr, *prePtr;
+    ptr = start;
+    prePtr = ptr;
+    while (ptr->next != NULL)
+    {
+        prePtr = ptr;
+        ptr = ptr->next;
+    }
+    free(ptr);
+    prePtr->next = NULL;
+    return start;
+}
+
+struct node *remove_midNode(struct node *start)
+{
+    struct node *ptr, *prePtr;
+    int value;
+    printf("\nsonrasinda silinecek veri: ");
+    scanf("%d", &value);
+    ptr = start;
+    prePtr = ptr;
+    while (ptr->data != value)
+    {
+        prePtr = ptr;
+        ptr = ptr->next;
+    }
+    prePtr = ptr;
+    ptr = ptr->next;
+    prePtr->next = ptr->next;
+    free(ptr);
+    return start;
+}
+
 int main()
 {
-    struct node *start = NULL;
-    start = create(start);
-
-    start = findNode(start);
+    enKucukIndex();
+    // struct node *start = NULL;
+    // start = create(start);
     // start = searchNode(start);
+    // start = remove_midNode(start);
+    // start = searchNode(start);
+    // start = findNode(start);
     // start = countNode(start);
     // start = insert_First(start);
-    // start = searchNode(start);
     // start = insert_End(start);
     // start = searchNode(start);
 
