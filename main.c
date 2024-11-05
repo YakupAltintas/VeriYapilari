@@ -250,27 +250,27 @@ struct node *countNode(struct node *start)
     return start;
 }
 
-struct node *findNode(struct node *start)
-{
-    int deger;
-    printf("\n aranacak deger giriniz: ");
-    scanf("%d", &deger);
+// struct node *findNode(struct node *start)
+// {
+//     int deger;
+//     printf("\n aranacak deger giriniz: ");
+//     scanf("%d", &deger);
 
-    int *findElement;
-    struct node *ptr;
-    ptr = start;
-    while (ptr != NULL)
-    {
-        if (ptr->data == deger)
-        {
-            findElement = ptr;
-            printf("\n bellek adresi: %d", findElement);
-        }
-        ptr = ptr->next;
-    }
-    printf("\n bellek adresi: %d", findElement);
-    return start;
-}
+//     int *findElement;
+//     struct node *ptr;
+//     ptr = start;
+//     while (ptr != NULL)
+//     {
+//         if (ptr->data == deger)
+//         {
+//             findElement = ptr;
+//             printf("\n bellek adresi: %d", findElement);
+//         }
+//         ptr = ptr->next;
+//     }
+//     printf("\n bellek adresi: %d", findElement);
+//     return start;
+// }
 
 struct node *insert_bag(struct node *start)
 {
@@ -360,10 +360,81 @@ struct node *remove_midNode(struct node *start)
     free(ptr);
     return start;
 }
+// hafta 6
+//  döngüsel listenin başına eleman ekleme
+struct node *addListFirst(struct node *start)
+{
+    struct node *newNode, *ptr;
+    int num;
+    printf("\n Veri Giriniz: ");
+    scanf("%d", &num);
+    newNode = (struct node *)malloc(sizeof(struct node));
+    if (start == NULL)
+    {
+        start = newNode;
+        start->next = start;
+    }
+    else
+    {
+        newNode->data = num;
+        ptr = start;
+        while (ptr->next != start)
+        {
+            ptr = ptr->next;
+        }
+        ptr->next = newNode;
+        newNode->next = start;
+        start = newNode;
+        return start;
+    }
+}
+
+struct node2
+{
+    struct node2 *prev;
+    int data;
+    struct node2 *next;
+};
+
+struct node2 *insert_beg2(struct node2 *start)
+{
+    int num;
+    struct node2 *newNode;
+    newNode = (struct node2 *)malloc(sizeof(struct node2));
+    printf("\n Deger giriniz : ");
+    scanf("%d", &num);
+    newNode->data = num;
+    if (start == NULL)
+    {
+        newNode->next = NULL;
+        newNode->prev = NULL;
+        start = newNode;
+    }
+    else
+    {
+        newNode->next = start;
+        start->prev = newNode;
+        newNode->prev = NULL;
+        start = newNode;
+    }
+    return start;
+}
+
+void display(struct node2 *start)
+{
+    struct node2 *ptr;
+    ptr = start;
+    while (ptr != NULL)
+    {
+        printf("\n data : %d", ptr->data);
+        ptr = ptr->next;
+    }
+}
 
 int main()
 {
-    enKucukIndex();
+
+    // enKucukIndex();
     // struct node *start = NULL;
     // start = create(start);
     // start = searchNode(start);
@@ -374,6 +445,9 @@ int main()
     // start = insert_First(start);
     // start = insert_End(start);
     // start = searchNode(start);
-
+    struct node2 *start = NULL;
+    start = insert_beg2(start);
+    start = insert_beg2(start);
+    display(start);
     return 0;
 }
