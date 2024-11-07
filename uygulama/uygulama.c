@@ -26,15 +26,14 @@ struct node *addListFirst(struct node *start)
     printf("\n Veri Giriniz: ");
     scanf("%d", &num);
     newNode = (struct node *)malloc(sizeof(struct node));
+    newNode->data = num;
     if (start == NULL)
     {
-        newNode->data = num;
         start = newNode;
         start->next = start;
     }
     else
     {
-        newNode->data = num;
         ptr = start;
         while (ptr->next != start)
         {
@@ -54,15 +53,14 @@ struct node *addListEnd(struct node *start)
     printf("\n Veri Giriniz: ");
     scanf("%d", &num);
     newNode = (struct node *)malloc(sizeof(struct node));
+    newNode->data = num;
     if (start == NULL)
     {
-        newNode->data = num;
         start = newNode;
         start->next = start;
     }
     else
     {
-        newNode->data = num;
         ptr = start;
         while (ptr->next != start)
         {
@@ -91,12 +89,13 @@ struct node *deleteListEnd(struct node *start)
 int main()
 {
     struct node *start = NULL;
-    for (size_t i = 0; i < 3; i++)
+    for (size_t i = 1; i <= 3; i++)
     {
-        start = addListEnd(start);
+        start = addListFirst(start);
     }
+    start = deleteListEnd(start);
     searchNode(start);
-    start = addListFirst(start);
-    searchNode(start);
+    // start = addListFirst(start);
+    // searchNode(start);
     return 0;
 }
