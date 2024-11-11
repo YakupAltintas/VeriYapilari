@@ -110,12 +110,12 @@ int enBuyuk()
     int enBuyuk = 0;
     for (int i = 0; i < 5; i++)
     {
-        if (enBuyuk <= a[i])
+        if (enBuyuk < a[i])
         {
             enBuyuk = a[i];
         }
     }
-
+    printf("%d ", enBuyuk);
     return enBuyuk;
 }
 
@@ -135,23 +135,23 @@ void ciftTopla()
     printf("%d", toplam);
 }
 
-// sturct tanımala
-typedef struct
-{
-    char name[20];
-    char department[20];
-    float fees;
-    Student *next;
-} Student;
+// // sturct tanımala
+// struct Student
+// {
+//     char name[20];
+//     char department[20];
+//     float fees;
+//     struct Student *next;
+// };
 
-void structTanimla()
-{
-    Student student1;
-    student1.fees = 5;
-    strcpy(student1.name, "name");
-    strcpy(student1.department, "name");
-    printf("%s", student1.name);
-}
+// void structTanimla()
+// {
+//     struct Student student1;
+//     student1.fees = 5;
+//     strcpy(student1.name, "name");
+//     strcpy(student1.department, "name");
+//     printf("%s", student1.name);
+// }
 
 // hafta5
 //  kendine referans yöntemi
@@ -200,7 +200,6 @@ struct node *create(struct node *start)
 // Liste elemanlarında gezinme
 struct node *searchNode(struct node *start)
 {
-
     struct node *ptr;
     ptr = start;
     while (ptr != NULL)
@@ -234,7 +233,7 @@ struct node *insert_End(struct node *start)
     newNode->next = NULL;
     return start;
 }
-// yukarıdaki donksiyonları aşağıda çağırısanız tüm kodlar sorunsuz çalışır!.
+// yukarıdaki fonksiyonları aşağıda çağırısanız tüm kodlar sorunsuz çalışır!.
 
 struct node *countNode(struct node *start)
 {
@@ -250,27 +249,25 @@ struct node *countNode(struct node *start)
     return start;
 }
 
-// struct node *findNode(struct node *start)
-// {
-//     int deger;
-//     printf("\n aranacak deger giriniz: ");
-//     scanf("%d", &deger);
+struct node *findNode(struct node *start)
+{
+    int deger;
+    printf("\n aranacak deger giriniz: ");
+    scanf("%d", &deger);
 
-//     int *findElement;
-//     struct node *ptr;
-//     ptr = start;
-//     while (ptr != NULL)
-//     {
-//         if (ptr->data == deger)
-//         {
-//             findElement = ptr;
-//             printf("\n bellek adresi: %d", findElement);
-//         }
-//         ptr = ptr->next;
-//     }
-//     printf("\n bellek adresi: %d", findElement);
-//     return start;
-// }
+    struct node *ptr;
+    ptr = start;
+    while (ptr != NULL)
+    {
+        if (ptr->data == deger)
+        {
+            printf("\n bellek adresi: %d", ptr);
+        }
+        ptr = ptr->next;
+    }
+    printf("\n bellek adresi: %d", ptr);
+    return start;
+}
 
 struct node *insert_bag(struct node *start)
 {
@@ -445,9 +442,13 @@ int main()
     // start = insert_First(start);
     // start = insert_End(start);
     // start = searchNode(start);
-    struct node2 *start = NULL;
-    start = insert_beg2(start);
-    start = insert_beg2(start);
-    display(start);
+    // struct node2 *start = NULL;
+    // start = insert_beg2(start);
+    // start = insert_beg2(start);
+    // display(start);
+
+    struct node *start = NULL;
+    start = create(start);
+    searchNode(start);
     return 0;
 }
