@@ -7,12 +7,26 @@ struct node
     int data;
     struct node *next;
 };
+
 void displayNode(struct node *start)
 {
     struct node *ptr;
     ptr = start;
     int sayac = 1;
     while (ptr->next != NULL)
+    {
+        printf("\n %d. deger : %d", sayac, ptr->data);
+        ptr = ptr->next;
+        sayac++;
+    }
+    printf("\n %d. deger : %d", sayac, ptr->data);
+}
+void displayCicyleNode(struct node *start)
+{
+    struct node *ptr;
+    ptr = start;
+    int sayac = 1;
+    while (ptr->next != start)
     {
         printf("\n %d. deger : %d", sayac, ptr->data);
         ptr = ptr->next;
@@ -102,16 +116,41 @@ struct node *addLineerListMiddle(struct node *start)
     return start;
 }
 
+struct node *addCiycleListInsert(struct node *start)
+{
+    struct node *newNode;
+    int num;
+    printf("\n Veri Giriniz: ");
+    scanf("%d", &num);
+    newNode = (struct node *)malloc(sizeof(struct node));
+    newNode->data = num;
+    newNode->prev = NULL;
+    newNode->next = NULL;
+    if (start == NULL)
+    {
+        newNode->prev = newNode;
+        newNode->next = newNode;
+        start = newNode;
+    }
+    else
+    {
+        newNode->next = start;
+        newNode->prev = start->prev;
+        start->prev = newNode;
+        newNode->prev->next = newNode;
+        start = newNode;
+    }
+    return start;
+}
+
 void main()
 {
     struct node *start = NULL;
     for (int i = 0; i < 5; i++)
     {
-        start = addLineerListEnd(start);
+        start = addCiycleListInsert(start);
     }
-    displayNode(start);
-    start = addLineerListMiddle(start);
-    displayNode(start);
+    displayCicyleNode(start);
 
     // start = addLineerListInsert(start);
     // displayNode(start);
